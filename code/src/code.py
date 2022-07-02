@@ -19,43 +19,25 @@ adcPin = ADC(Pin(28))
 
 fader = MotorFader(pin12, pin13, enable, adcPin)
 
-def ISR_button(pin):         
-    global buttonState      
-    button.irq(handler = None) 
-    
-    if (button.value() == 1) and (buttonState == 0):  
-        buttonState = 1    
-        print("ON")   
-        
-    elif (button.value() == 0) and (buttonState == 1): 
-        buttonState = 0     
-        print("OFF")      
-    button.irq(handler=ISR_button)
-    
-button = Pin(11,Pin.IN, Pin.PULL_DOWN)
-button.irq(trigger=Pin.IRQ_RISING | Pin.IRQ_FALLING, handler=ISR_button)
-
-
 def motorMove(target):
     if target < fader.potentiometer.read_u16() - POT_THRESHOLD:
         fader.forward(PWM_FULL)
         while target < (fader.potentiometer.read_u16() + POT_THRESHOLD):
-             pass   
+            pass
         fader.stop()
-    elif target > fader.potentiometer.read_u16() + POT_THRESHOLD:            
+    elif target > fader.potentiometer.read_u16() + POT_THRESHOLD:
         fader.backward(PWM_FULL)
         while target < (fader.potentiometer.read_u16() + POT_THRESHOLD):
             pass
         fader.stop()
-    return 
-    
-def setTargetMinMax(lim, target):
+
+def setTargetMinMax(target):
     if target > fader.upper_limit:
         target = fader.upper_limit
     if target < fader.lower_limit:
         target = fader.lower_limit
     return target
-        
+
 def checkCurrentPosition(lastPotPos):
     currentPotPos = fader.potentiometer.read_u16()
     if (lastPotPos < currentPotPos - POT_THRESHOLD) or (lastPotPos > currentPotPos + POT_THRESHOLD ):
@@ -66,3 +48,4 @@ motorLimits = fader.calibration(PWM_FULL)
 
 
 while True:
+    pass
