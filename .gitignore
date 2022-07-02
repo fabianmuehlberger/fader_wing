@@ -1,7 +1,0 @@
-.pylintrc
-dev-requirements.txt
-pymakr.conf
-mycropy.json
-.mycropy
-.vscode
-.mypy_cache
