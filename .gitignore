@@ -1,3 +1,4 @@
 code/.vscode
-code/test
-./temp
+code/.pylintrc
+code/micropy.json
+code/pymakr.conf
