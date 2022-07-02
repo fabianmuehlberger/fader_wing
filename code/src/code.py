@@ -1,6 +1,5 @@
-import sys
-import rp2
 import time
+import uasyncio
 from machine import ADC, Pin, PWM
 
 # from DCMotor import DCMotor
@@ -20,16 +19,16 @@ adcPin = ADC(Pin(28))
 
 fader = MotorFader(pin12, pin13, enable, adcPin)
 
-def ISR_button(pin):         # button Interrupt handler
-    global buttonState      # reference the global variable
-    button.irq(handler = None) # Turn off the handler while it is executing
+def ISR_button(pin):         
+    global buttonState      
+    button.irq(handler = None) 
     
-    if (button.value() == 1) and (buttonState == 0):  # button is active (High) and button State is currently Low
-        buttonState = 1     # Update current state of switch
+    if (button.value() == 1) and (buttonState == 0):  
+        buttonState = 1    
         print("ON")   
         
-    elif (button.value() == 0) and (buttonState == 1): # button is not-active (Low) and button State is currently High
-        buttonState = 0     # Update current state of switch
+    elif (button.value() == 0) and (buttonState == 1): 
+        buttonState = 0     
         print("OFF")      
     button.irq(handler=ISR_button)
     
