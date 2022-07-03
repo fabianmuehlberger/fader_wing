@@ -36,31 +36,40 @@ class MotorFader:
         self.backward.value(0)
         self.duty_cycle.duty_u16(0)
 
+
     def calibration(self, speed):
         '''read the upper and lower limit of the potentiometer amd setting it as the limits to improve the accuracy'''
         self.stop()
         time.sleep(SHORT_SLEEP)
 
         self.forward(speed)
-        lower = self.get_limit('upper')
+        lower = self.get_upper_limit()
         self.stop()
         time.sleep(SHORT_SLEEP)
 
         self.backward(speed)
-        upper = self.get_limit('lower')
+        upper = self.get_lower_limit()
         self.stop()
         time.sleep(SHORT_SLEEP)
 
         return upper, lower
 
-    def get_limit(self, limit):
+    def get_upper_limit(self):
         ''' read potentiometer value at position'''
         potentiometer_values = []
         for _ in range(1, 1000):
             potentiometer_values.append(self.potentiometer.read_u16())
             time.sleep(0.001)
+        self.upper_limit = max(potentiometer_values)
 
-            if limit == "upper":
-                self.upper_limit = max(potentiometer_values)
-            if limit == "lower":
-                self.lower_limit = max(potentiometer_values)
+    def get_lower_limit(self):
+        ''' read potentiometer value at position'''
+        potentiometer_values = []
+        for _ in range(1, 1000):
+            potentiometer_values.append(self.potentiometer.read_u16())
+            time.sleep(0.001)
+        self.lower_limit = max(potentiometer_values)
+
+    def get_position(self):
+        '''returns current position of potentiometer'''
+
