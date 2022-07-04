@@ -1,6 +1,6 @@
 '''by fabian muehlberger
 For controlling motor faders using a single phase motor driver. (BD6961F)
-This implementation uses Hall + and Hall - of the BD6961F for setting forward and backwad.
+This implementation uses Hall + and Hall - of the BD6961F for setting forward and backward.
 The motorized linear potentiometer used is bourns PSM60
 '''
 import time
