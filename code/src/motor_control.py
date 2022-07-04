@@ -1,16 +1,19 @@
 '''by fabian muehlberger
-For controlling motor faders using a single phase motor driver. (BD6961F) This implementation uses Hall + and Hall - of the BD6961F for setting forward and backwad.
+For controlling motor faders using a single phase motor driver. (BD6961F)
+This implementation uses Hall + and Hall - of the BD6961F for setting forward and backwad.
+The motorized linear potentiometer used is bourns PSM60
 '''
 import time
 
 SHORT_SLEEP = 0.1
 
 class MotorFader:
-    '''Controlls movement of the motorfader including methods for setting the upper and lower limit of the fader'''
+    '''Controlls movement of the motorfader'''
     def __init__(self, forward, backward, duty_cycle, potentiometer):
         self.potentiometer = potentiometer
-        self.upper_limit = 0
-        self.lower_limit = 0
+        '''default Limits are defined for the use of a BD6961F with a PSM60 driven by 9V'''
+        self.upper_limit = 500
+        self.lower_limit = 65000
         self.speed = 0
         self.forward=forward
         self.backward=backward
@@ -35,7 +38,6 @@ class MotorFader:
         self.forward.value(0)
         self.backward.value(0)
         self.duty_cycle.duty_u16(0)
-
 
     def calibration(self, speed):
         '''read the upper and lower limit of the potentiometer amd setting it as the limits to improve the accuracy'''
