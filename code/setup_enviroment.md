@@ -18,6 +18,8 @@ The python extension does not know micropython, therefore MicroPy-CLI is used
 * follow the insttructions on https://github.com/BradenM/micropy-cli
 This enables Pylint and Pylance in VSCode to work korrectly 
 
+* make shure, the correct stubs are added with ```micropy stubs add``` command in this enviroment the stubs are from [this](https://github.com/cpwood/Pico-Stub/blob/main/micropy.md#using-the-stubs) repository 
+
 ### Connect to the board 
 
 
