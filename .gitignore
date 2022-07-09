@@ -3,3 +3,4 @@ code/.pylintrc
 code/micropy.json
 code/pymakr.conf
 code/dev-requirements.txt
+Pico-Stub-main
